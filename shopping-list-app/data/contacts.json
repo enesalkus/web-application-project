@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1749969077768,
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@email.com",
+    "message": "I absolutely love your app! The ability to sync shopping lists with my family is amazing. However, I've noticed that notifications are sometimes delayed. Could you fix this issue?",
+    "date": "2024-03-15T10:31:17.768Z"
+  },
+  {
+    "id": 1749969450668,
+    "name": "Michael Thompson",
+    "email": "michael.thompson@email.com",
+    "message": "The category organization feature is super helpful! Would it be possible to add a price comparison feature? That way I could see which store has the best deals before heading out.",
+    "date": "2024-03-15T11:37:30.668Z"
+  },
+  {
+    "id": 1749970009672,
+    "name": "Emily Davis",
+    "email": "emily.davis@email.com",
+    "message": "I'm using the app with my mom, and she's having trouble seeing some of the buttons. Could you make the interface more senior-friendly with larger text and buttons?",
+    "date": "2024-03-15T12:46:49.672Z"
+  },
+  {
+    "id": 1749970590282,
+    "name": "David Wilson",
+    "email": "david.wilson@email.com",
+    "message": "Would you consider adding a PDF export feature for shopping lists? It would be great to have a printed copy when I go to the store. Also, a barcode scanner would be really useful!",
+    "date": "2024-03-15T13:56:30.282Z"
+  },
+  {
+    "id": 1749970590283,
+    "name": "Jennifer Martinez",
+    "email": "jennifer.martinez@email.com",
+    "message": "I'm using the app with my roommates in our college dorm. It would be awesome if you could add a feature to split expenses for shared shopping lists. This would make our grocery shopping much easier!",
+    "date": "2024-03-15T14:20:15.282Z"
+  }
+]

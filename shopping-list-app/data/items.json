@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1749972000000,
+    "name": "Bread",
+    "quantity": 2,
+    "weight": null,
+    "completed": false
+  },
+  {
+    "id": 1749972000001,
+    "name": "Milk",
+    "quantity": null,
+    "weight": 1,
+    "completed": false
+  },
+  {
+    "id": 1749972000002,
+    "name": "Eggs",
+    "quantity": 12,
+    "weight": null,
+    "completed": false
+  },
+  {
+    "id": 1749972000003,
+    "name": "Cheese",
+    "quantity": null,
+    "weight": 0.25,
+    "completed": true
+  },
+  {
+    "id": 1749972000004,
+    "name": "Tomatoes",
+    "quantity": 5,
+    "weight": null,
+    "completed": true
+  },
+  {
+    "id": 1749972000005,
+    "name": "Cucumber",
+    "quantity": 3,
+    "weight": null,
+    "completed": true
+  },
+  {
+    "id": 1749972000006,
+    "name": "Banana",
+    "quantity": 4,
+    "weight": null,
+    "completed": false
+  }
+]

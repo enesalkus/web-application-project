@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            color: rgb(0, 0, 0);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 2rem;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+            margin-right: 2rem;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: white;
+            background-color: #4CC9FE;
+        }
+
+        .navbar a.active {
+            color: white;
+            background-color: #37AFE1;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 80px auto 100px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #shopping {
+            position: relative;
+        }
+
+        #shopping::before,
+        #home::before,
+        #contact::before,
+        #messages::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px);
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        #shopping .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #37AFE1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4CC9FE;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item.completed span {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .item-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .delete-btn:hover {
+            background-color: #da190b;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .messages-container {
+            margin-top: 20px;
+        }
+
+        .message-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .message-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .message-id {
+            font-weight: bold;
+            color: #37AFE1;
+        }
+
+        .message-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .message-email {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .message-content {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .no-messages {
+            text-align: center;
+            color: #6c757d;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">Shopping List App</div>
+        <ul>
+            <li><a href="#" class="active" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('shopping')">Shopping List</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            <li><a href="#" onclick="showPage('messages')">Message Box</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div id="home" class="page active">
+            <h1>Welcome to Shopping List App</h1>
+            <p class="description">
+                Welcome to your personal shopping list manager! This application helps you organize your shopping
+                efficiently.
+                You can create multiple shopping lists, add items with quantities and weights, mark completed items, and
+                manage your shopping experience.
+            </p>
+            <p>by Ayet Enes ALKUS - 154563</p>
+            <div class="features">
+                <h2>Key Features:</h2>
+                <ul>
+                    <li>Add items with quantities and weights</li>
+                    <li>Mark items as completed (with strikethrough)</li>
+                    <li>Delete items from your list</li>
+                    <li>Responsive design for all devices</li>
+                    <li>User-friendly interface</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="shopping" class="page">
+            <h1>Shopping List</h1>
+            <div class="input-group">
+                <input type="text" id="itemInput" placeholder="Add new item...">
+                <input type="number" id="quantityInput" placeholder="Quantity" min="0" step="0.1">
+                <select id="unitType">
+                    <option value="quantity">Pieces</option>
+                    <option value="weight">Kilograms</option>
+                </select>
+                <button onclick="addItem()">Add</button>
+            </div>
+            <div id="itemList"></div>
+        </div>
+
+        <div id="contact" class="page">
+            <h1>Contact Us</h1>
+            <form class="contact-form" id="contactForm" onsubmit="submitContact(event)">
+                <input type="text" id="contactName" placeholder="Your Name" required>
+                <input type="email" id="contactEmail" placeholder="Your Email" required>
+                <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="contactStatus" class="contact-status"></div>
+        </div>
+
+        <div id="messages" class="page">
+            <h1>Message Box</h1>
+            <div class="messages-container">
+                <div class="messages-list" id="messagesList">
+                    <!-- Messages will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="copyright">
+                © 2025 Shopping List App. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('shopping')">Shopping List</a>
+                <a href="#" onclick="showPage('contact')">Contact</a>
+                <a href="#" onclick="showPage('messages')">Message Box</a>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Alertify ayarları
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.set('notifier', 'delay', 3);
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>
